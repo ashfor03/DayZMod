@@ -1083,6 +1083,8 @@ class FSM
        "		sleep 2;" \n
        "	};" \n
        "};" \n
+       "{ _x call fnc_vehicleEventHandler; } forEach vehicles;" \n
+       "{ nul = [_x,2,0,false,false] spawn BIS_Effects_Burn; } forEach allMissionObjects ""UH1Wreck_DZ"";" \n
        ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
