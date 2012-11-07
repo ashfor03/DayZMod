@@ -10,7 +10,7 @@ _dialog = findDisplay 106;
 _created = false;
 if ( isNull _dialog ) then { 
 	startLoadingScreen [""];
-	createGearDialog [player, "RscDisplayGear"]; 
+	createGearDialog [player, "RscDisplayGear"];
 	_dialog = findDisplay 106;
 	_created = true;
 };
