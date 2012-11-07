@@ -8,7 +8,7 @@ This is a Community Dayz project.
 FIX : NOVEMBER 2012
 
 	Affected addons:
-		* dayz_code		1.7.4
+		* dayz_code		[development version - subject to change at any time]
 
 	Community Notes: 
 		* Current Changelog not final Changelog
