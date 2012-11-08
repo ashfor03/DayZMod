@@ -56,7 +56,7 @@ diag_log "HIVE: Starting";
 			_damage = 	_x select 8;
 			
 			if (_damage < 1) then {
-				diag_log ("OBJ: " + str(_idKey) + _type);
+				diag_log format["OBJ: %1 - %2", _idKey,_type];
 				
 				//Create it
 				_object = createVehicle [_type, _pos, [], 0, "CAN_COLLIDE"];
@@ -134,7 +134,7 @@ diag_log "HIVE: Starting";
 						_position = ([(getPosATL _object),0,100,10,0,500,0] call BIS_fnc_findSafePos);
 						_object setPosATL _position;
 					};
-					_id = _object spawn fnc_vehicleEventHandler;			
+					_object call fnc_vehicleEventHandler;			
 				};
 
 				//Monitor the object
