@@ -163,6 +163,52 @@ diag_log "HIVE: Starting";
 		
 	// # END OF STREAMING #
 
+//Spawn crashed helos
+private["_position","_veh","_num","_config","_itemType","_itemChance","_weights","_index","_iArray","_nearBy"];
+	diag_log "DEBUG: heli chrashed spawn initialized";
+	_config = 	configFile >> "CfgBuildingLoot" >> "HeliCrash";
+	_itemType =	[] + getArray (_config >> "itemType");
+	_itemChance =	[] + getArray (_config >> "itemChance");
+// preload func
+	BIS_fnc_selectRandom = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_selectRandom.sqf";
+
+	waitUntil{!isNil "fnc_buildWeightedArray"};
+	waitUntil{!isNil "spawn_loot"};
+
+	_weights = [];
+// call this useless func only once, because _weights is same.
+	_weights = [_itemType,_itemChance] call fnc_buildWeightedArray;
+	//diag_log ("DW_DEBUG: _weights: " + str(_weights));	
+
+for "_x" from 1 to 5 do {
+	_position = [getMarkerPos "center",0,4000,10,0,2000,0] call BIS_fnc_findSafePos;
+	_veh = createVehicle ["UH1Wreck_DZ",_position, [], 0, "CAN_COLLIDE"];
+	diag_log format["DEBUG: heli crashed: %1 %2",_veh,_position];
+	_veh setVariable ["ObjectID",1,true];
+	_num = round(random 4) + 3;
+
+	dayz_serverObjectMonitor set [count dayz_serverObjectMonitor,_veh];
+	dayzFire = [_veh,2,time,false,false];
+	publicVariable "dayzFire";
+	
+	for "_x" from 1 to _num do {
+		//create loot
+		_index = _weights call BIS_fnc_selectRandom;
+		if (count _itemType > _index) then {
+			_iArray = _itemType select _index;
+			_iArray set [2,_position];
+			_iArray set [3,5];
+// slow function... because fnc_buildWeightedArray is slow.
+			_iArray call spawn_loot;
+			_nearBy = _position nearObjects ["WeaponHolder",20];
+			{
+				_x setVariable ["permaLoot",true];
+			} forEach _nearBy;
+		};
+	};
+};
+diag_log "DEBUG: heli chrashed spawn finished";
+
 //Set the Time
 	//Send request
 	_key = "CHILD:307:";
@@ -190,9 +236,3 @@ if (isDedicated) then {
 };
 
 allowConnection = true;
-
-//Spawn crashed helos
-for "_x" from 1 to 5 do {
-	_id = [] spawn spawn_heliCrash;
-	//waitUntil{scriptDone _id};
-};
