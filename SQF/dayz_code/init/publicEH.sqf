@@ -1,4 +1,5 @@
 //Medical Event Handlers
+//this EH must be reviewed, most of them player only and useless in server space
 "norrnRaLW"   		addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\load_wounded.sqf"};
 "norrnRLact"		addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\load\load_wounded.sqf"};
 "norrnRDead"   		addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\deadState.sqf"};
@@ -29,12 +30,12 @@ if (isServer) then {
 	"dayzPublishObj"	addPublicVariableEventHandler {(_this select 1) call server_publishObj};
 	"dayzUpdateVehicle" addPublicVariableEventHandler {_id = (_this select 1) spawn server_updateObject};
 	"dayzDeleteObj"		addPublicVariableEventHandler {_id = (_this select 1) spawn local_deleteObj};
-	"dayzLogin"      addPublicVariableEventHandler {(_this select 1) call server_playerLogin};
+	"dayzLogin"      addPublicVariableEventHandler {(_this select 1) spawn server_playerLogin}; // spawn need for bot timeout
 	"dayzLogin2"		addPublicVariableEventHandler {(_this select 1) call server_playerSetup};
-	"dayzPlayerMorph"	addPublicVariableEventHandler {(_this select 1) call server_playerMorph};
-	"dayzUpdate"		addPublicVariableEventHandler {_id = (_this select 1) spawn dayz_processUpdate};
+//	"dayzPlayerMorph"	addPublicVariableEventHandler {(_this select 1) call server_playerMorph}; // not used
+//	"dayzUpdate"		addPublicVariableEventHandler {_id = (_this select 1) spawn dayz_processUpdate}; // not used
 	"dayzLoginRecord"	addPublicVariableEventHandler {_id = (_this select 1) spawn dayz_recordLogin};
-	"dayzCharSave"    addPublicVariableEventHandler {(_this select 1) call server_playerSync};
+//	"dayzCharSave"    addPublicVariableEventHandler {(_this select 1) call server_playerSync}; // not used
 	"dayzCharDisco"    addPublicVariableEventHandler {(_this select 1) call server_characterSync};
 };
 
@@ -45,8 +46,8 @@ if (!isDedicated) then {
 	"dayzRoadFlare"		addPublicVariableEventHandler {(_this select 1) spawn object_roadFlare};
 	"norrnRaDrag"   	addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\animDrag.sqf"};
 	"norrnRnoAnim"  	addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\noAnim.sqf"};
-	"changeCharacter"	addPublicVariableEventHandler {(_this select 1) call player_serverModelChange};
-	"dayzSwitch"		addPublicVariableEventHandler {(_this select 1) call server_switchPlayer};
+//	"changeCharacter"	addPublicVariableEventHandler {(_this select 1) call player_serverModelChange}; // not used
+//	"dayzSwitch"		addPublicVariableEventHandler {(_this select 1) call server_switchPlayer}; // not used
 	"dayzFire"			addPublicVariableEventHandler {nul=(_this select 1) spawn BIS_Effects_Burn};
 	//"dayz_combatLog"	addPublicVariableEventHandler {nul=(_this select 1) spawn player_combatLogged};
 };

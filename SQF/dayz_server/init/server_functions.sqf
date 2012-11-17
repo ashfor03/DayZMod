@@ -14,6 +14,10 @@ local_createObj = 			compile preprocessFileLineNumbers "\z\addons\dayz_code\comp
 server_playerSync =			compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_playerSync.sqf";
 zombie_findOwner =			compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\zombie_findOwner.sqf";
 server_updateNearbyObjects =	compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_updateNearbyObjects.sqf";
+// bot's functions
+disco_playerMorph = 		compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\disco_playerMorph.sqf";
+disco_damageHandler =		compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\disco_damageHandler.sqf";
+disco_playerDeath  =		compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\disco_playerDeath.sqf";
 
 vehicle_handleInteract = {
 	private["_object"];
